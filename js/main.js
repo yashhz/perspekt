@@ -20,8 +20,22 @@ $$('#cal-grid').forEach(function(){});
     nav.classList.toggle('stuck',scrollY>8);
     var cur=-1;secs.forEach(function(s,i){if(s.getBoundingClientRect().top<innerHeight*.45)cur=i});
     var book=$('#book').getBoundingClientRect().top<innerHeight*.45;
-    links.forEach(function(l,i){l.classList.toggle('on',i===cur&&!book)});
+    active=cur>-1&&!book?links[cur]:null;if(!hover)place(active);
   });
+  /* the highlight slides to the section you are in, and previews whichever link you point at */
+  var ul=$('#nav-links'),ind=$('.ind',ul),active=null,hover=null,placed=false;
+  function place(el){
+    links.forEach(function(l){l.classList.toggle('lit',l===el)});
+    if(!el||!ul.offsetWidth){ind.style.opacity=0;return}
+    var r=el.getBoundingClientRect(),u=ul.getBoundingClientRect();
+    if(!placed){ind.style.transition='none';placed=true}
+    ind.style.width=r.width+'px';ind.style.transform='translateX('+(r.left-u.left)+'px)';ind.style.opacity=1;
+    ind.offsetWidth;ind.style.transition='';
+  }
+  links.forEach(function(l){l.addEventListener('mouseenter',function(){hover=l;place(l)});l.addEventListener('focus',function(){hover=l;place(l)})});
+  ul.addEventListener('mouseleave',function(){hover=null;place(active)});
+  ul.addEventListener('focusout',function(){hover=null;place(active)});
+  addEventListener('resize',function(){placed=false;place(hover||active)});
   function toggle(v){menu.classList.toggle('open',v);btn.setAttribute('aria-expanded',v)}
   btn.addEventListener('click',function(){toggle(!menu.classList.contains('open'))});
   $$('a',menu).forEach(function(l){l.addEventListener('click',function(){toggle(false)})});
@@ -100,13 +114,20 @@ onScroll.push(function(){var h=document.documentElement;$('#bar').style.transfor
   if(calm)ws.forEach(function(w){w.classList.add('on')});
   else onScroll.push(function(){var r=el.getBoundingClientRect(),vh=innerHeight,p=clamp((vh*.9-r.top)/(vh*.5+r.height*.5)),n=Math.round(p*ws.length);ws.forEach(function(w,i){w.classList.toggle('on',i<n)})});
 
-  /* before / after: wipes across, and switches by itself until someone touches it */
-  var cmp=$('#cmp'),a=$('#cmp-a'),b=$('#cmp-b'),after=false,auto=0;
-  function show(v){after=v;cmp.style.setProperty('--x',v?'100%':'0%');cmp.classList.toggle('is-after',v);a.setAttribute('aria-pressed',!v);b.setAttribute('aria-pressed',v);$('#cmp-after').setAttribute('aria-hidden',!v)}
+  /* before / after: wipes across by itself until someone touches it; the handle can be dragged */
+  var cmp=$('#cmp'),stage=$('#cmp-stage'),a=$('#cmp-a'),b=$('#cmp-b'),handle=$('.cmp-handle span',cmp),after=false,auto=0,drag=false;
+  function setX(p){cmp.style.setProperty('--x',(p*100).toFixed(1)+'%');cmp.style.setProperty('--g',(p<.06?22*(1-p/.06):p>.94?-22*((p-.94)/.06):0).toFixed(1)+'px');var v=p>.5;after=v;a.setAttribute('aria-pressed',!v);b.setAttribute('aria-pressed',v);$('#cmp-after').setAttribute('aria-hidden',p<.02)}
+  function show(v){setX(v?1:0)}
   function stop(){clearInterval(auto);auto=0}
   a.addEventListener('click',function(){stop();show(false)});b.addEventListener('click',function(){stop();show(true)});
+  function at(e){var r=stage.getBoundingClientRect();return clamp((e.clientX-r.left)/r.width)}
+  function start(e){stop();drag=true;cmp.classList.add('dragging');try{e.target.setPointerCapture(e.pointerId)}catch(_){}setX(at(e));e.preventDefault()}
+  handle.addEventListener('pointerdown',start);
+  stage.addEventListener('pointerdown',function(e){if(e.pointerType==='mouse'&&e.target!==handle)start(e)});
+  addEventListener('pointermove',function(e){if(drag)setX(at(e))});
+  addEventListener('pointerup',function(){if(drag){drag=false;cmp.classList.remove('dragging')}});
   show(false);
-  if(!calm)new IntersectionObserver(function(es,o){if(es[0].isIntersecting){o.disconnect();setTimeout(function(){show(true)},700);auto=setInterval(function(){show(!after)},4200)}},{threshold:.4}).observe(cmp);
+  if(!calm)new IntersectionObserver(function(es,o){if(es[0].isIntersecting){o.disconnect();setTimeout(function(){if(!drag)show(true)},700);auto=setInterval(function(){show(!after)},4200)}},{threshold:.4}).observe(cmp);
   else show(true);
 
   /* who it is for: the panel you point at opens */

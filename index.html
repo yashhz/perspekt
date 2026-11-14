@@ -20,10 +20,11 @@
     <a class="home" href="#top" aria-label="Perspekt, back to top"><span class="logo" role="img" aria-label="perspekt."></span></a>
     <ul id="nav-links">
       <li><a href="#why">Why</a></li>
-      <li><a href="#how">How it works</a></li>
+      <li><a href="#how">Process</a></li>
       <li><a href="#said">Clients</a></li>
       <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#faq">Questions</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li class="ind" aria-hidden="true"></li>
     </ul>
     <div class="nav-end">
       <button class="theme-btn" id="theme-btn" type="button" aria-pressed="false" aria-label="Dark mode"><i></i></button>
@@ -33,7 +34,7 @@
   </div>
 </header>
 <nav class="menu" id="menu" aria-label="Menu">
-  <a href="#why">Why</a><a href="#how">How it works</a><a href="#said">Clients</a><a href="#pricing">Pricing</a><a href="#faq">Questions</a><a href="#book">Book a call →</a>
+  <a href="#why">Why</a><a href="#how">Process</a><a href="#said">Clients</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#book">Book a call →</a>
 </nav>
 
 <main id="top">
@@ -85,11 +86,10 @@ Here is the maths we did at 1 a.m.</p>
 
 <section class="nums" id="results">
   <div class="wrap">
-    <span class="label">Results so far. Placeholder numbers.</span>
     <div class="nums-grid">
+      <div class="nums-intro"><span class="label">Results so far</span><p>Measured on our clients' LinkedIn analytics.</p><span class="note">Placeholder numbers.</span></div>
       <div class="num rv"><b><span data-n="1.2" data-d="1">1.2</span><small>M+</small></b><span>impressions on posts we wrote</span></div>
       <div class="num rv"><b><small id="st-pre">₹</small><span id="st-n" data-n="40">40</span><small id="st-suf"> L+</small></b><span>in client revenue traced back to a post</span></div>
-      <div class="num rv"><b><span data-n="18000">18,000</span><small>+</small></b><span>followers added across client profiles</span></div>
     </div>
   </div>
 </section>
@@ -100,29 +100,17 @@ Here is the maths we did at 1 a.m.</p>
     <p class="fill" id="fill">Before the meeting, the term sheet or the offer letter, someone looks you up. They find your thinking, or they find nothing.</p>
     <div class="why-grid">
       <div class="cmp rv" id="cmp" style="--x:0%">
-        <div class="cmp-bar" style="--fg:var(--ink);--bg:var(--card)">
-          <span>Someone looks you up on LinkedIn. Illustration.</span>
+        <div class="cmp-bar">
+          <span class="cmp-q"><svg class="li-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0a66c2"/><circle cx="6.6" cy="6.7" r="1.75" fill="#fff"/><rect x="5.1" y="9.6" width="3" height="9.4" fill="#fff"/><path fill="#fff" d="M10.2 9.6h2.9v1.3c.6-1 1.7-1.6 3.1-1.6 2.5 0 3.5 1.6 3.5 4.2V19h-3v-4.9c0-1.3-.5-2.1-1.6-2.1-1.2 0-1.9.8-1.9 2.1V19h-3z"/></svg>Someone looks you up on LinkedIn. Illustration.</span>
           <div class="seg" role="group" aria-label="Compare">
             <button type="button" id="cmp-a" aria-pressed="true">Today</button>
-            <button type="button" id="cmp-b" aria-pressed="false">With Perspekt</button>
+            <button type="button" id="cmp-b" aria-pressed="false" aria-label="With Perspekt"><span class="logo"></span></button>
           </div>
         </div>
-        <div class="cmp-stage">
-          <div class="side before">
-            <div class="who"><span class="ph"></span><div><b>Your name</b><span>Founder &amp; CEO at Company · 412 followers</span></div></div>
-            <div class="empty"><div><b>No recent activity</b><span>Last post: a hiring notice, fourteen months ago.</span></div></div>
-          </div>
-          <div class="side after" id="cmp-after">
-            <div class="who"><span class="ph"><svg class="sil" viewBox="0 0 100 100" aria-hidden="true"><use href="#sil"/></svg></span><div><b>Your name</b><span>Building Company. Writing about pricing, capacity and hiring.</span></div></div>
-            <div class="found">
-              <blockquote>We turned down our biggest order last quarter. Delivering it would have made us a different company.<small>Posted two days ago</small></blockquote>
-              <ul>
-                <li>A fund partner viewed your profile</li>
-                <li>Three new messages this week</li>
-                <li>An invitation to speak</li>
-              </ul>
-            </div>
-          </div>
+        <div class="cmp-stage" id="cmp-stage">
+          <div class="side before"><span class="side-tag">Today</span><div class="pf"><div class="pf-card"><div class="pf-banner"></div><div class="pf-main"><span class="pf-av"><svg class="sil" viewBox="0 0 100 100" aria-hidden="true"><use href="#sil"/></svg></span><b class="pf-name">Your name <small>· 1st</small></b><p class="pf-head">Founder &amp; CEO at Company</p><p class="pf-meta">Mumbai, India · <a>Contact info</a></p><p class="pf-meta">412 followers · <b>380 connections</b></p><div class="pf-btns"><span class="pf-btn pri">Connect</span><span class="pf-btn">Message</span></div></div></div><div class="pf-side"><div class="pf-box"><b>Analytics</b><small>Private to you · past 90 days</small><div class="pf-stats"><div><b>38</b><span>profile views</span></div><div><b>210</b><span>post impressions</span></div><div><b>12</b><span>search appearances</span></div></div></div><div class="pf-box"><b>Activity</b><small>412 followers</small><div class="pf-post old"><small>Your name posted this · 1y</small><p>We are hiring! Apply through the link below.</p><span class="reacts"><i></i><span>4</span></span></div></div></div></div></div>
+          <div class="side after" id="cmp-after"><span class="side-tag">With <span class="logo" role="img" aria-label="perspekt."></span></span><div class="pf"><div class="pf-card"><div class="pf-banner"><span>Pricing. Capacity. <mark>Hiring.</mark></span></div><div class="pf-main"><span class="pf-av"><svg class="sil" viewBox="0 0 100 100" aria-hidden="true"><use href="#sil"/></svg></span><b class="pf-name">Your name <small>· 1st</small></b><p class="pf-head">Founder at Company · Writing about pricing, capacity and building a profitable manufacturer</p><p class="pf-meta">Mumbai, India · <a>Contact info</a></p><p class="pf-meta">8,412 followers · <b>500+ connections</b></p><div class="pf-btns"><span class="pf-btn pri">Follow</span><span class="pf-btn">Message</span></div></div></div><div class="pf-side"><div class="pf-box"><b>Analytics</b><small>Private to you · past 90 days</small><div class="pf-stats"><div><b>1,180</b><span>profile views</span><i>+212%</i></div><div><b>24.6k</b><span>post impressions</span><i>+940%</i></div><div><b>340</b><span>search appearances</span><i>+180%</i></div></div><p class="pf-note">A fund partner and 2 others viewed your profile today</p></div><div class="pf-box"><b>Activity</b><small>8,412 followers</small><div class="pf-post"><small>Your name posted this · 2d</small><p>We raised prices by 30% in March. We lost two customers and gained a better business.</p><span class="reacts"><i></i><i></i><i></i><span>312 · 47 comments</span></span></div><div class="pf-post"><small>Your name posted this · 1w</small><p>Three things I got wrong about hiring our first sales lead.</p><span class="reacts"><i></i><i></i><span>1,204 · 96 comments</span></span></div></div></div></div></div>
+          <div class="cmp-handle" aria-hidden="true"><span>‹ ›</span></div>
         </div>
       </div>
     </div>
@@ -199,16 +187,16 @@ Here is the maths we did at 1 a.m.</p>
 </section>
 
 <section class="band" id="team">
-  <div class="wrap">
-    <div class="gw">
+  <div class="wrap team-grid">
+    <div class="team-intro gw">
       <span class="label">Who writes</span>
       <h2>People, <span class="g">not prompts.</span></h2>
+      <p>A small team, on purpose. The person on your calls is the person who writes your posts.</p>
+      <span class="note">Placeholder photos, names and roles.</span>
     </div>
-    <p class="note" style="margin-top:14px">Placeholder photos, names and roles.</p>
     <div class="team">
       <div class="person rv"><div class="shot"><span>Photo</span><svg class="sil" viewBox="0 0 100 100" aria-hidden="true"><use href="#sil"/></svg></div><b>Name Surname</b><small>Founder, strategy</small></div>
       <div class="person rv"><div class="shot"><span>Photo</span><svg class="sil" viewBox="0 0 100 100" aria-hidden="true"><use href="#sil"/></svg></div><b>Name Surname</b><small>Lead writer</small></div>
-      <div class="person rv"><div class="shot"><span>Photo</span><svg class="sil" viewBox="0 0 100 100" aria-hidden="true"><use href="#sil"/></svg></div><b>Name Surname</b><small>Research and engagement</small></div>
     </div>
   </div>
 </section>
