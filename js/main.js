@@ -244,16 +244,17 @@ function updateRet(quiet){
   $$('#plan-m2 .cost[data-inr]').forEach(function(c){var v=+c.dataset.inr;c.textContent=v?'+'+money(rprice(v,R),cur):'base'});
   var from=retShown&&retShown.cur===cur?retShown:null;retShown=to;
   cancelAnimationFrame(retRaf);
-  if(quiet||calm||!from){el.textContent=money(to.lo,cur)+'\u2013'+kfmt(to.hi);return}
+  var per=$('#ret-per');
+  function paint(l,h){el.textContent=full(l,cur);per.textContent='to '+full(h,cur)+' a month'}
+  if(quiet||calm||!from){paint(to.lo,to.hi);return}
   /* a chip shows how much the last choice added or took away */
   var d=to.lo-from.lo,chip=$('#ret-delta');
   if(d){chip.textContent=(d>0?'+':'\u2212')+money(Math.abs(d),cur);chip.classList.remove('go');void chip.offsetWidth;chip.classList.add('go')}
-  var step=cur==='INR'?1000:100,t0=performance.now();
+  var step=cur==='INR'?1000:50,t0=performance.now();
   (function frame(t){
     var p=Math.min(1,(t-t0)/600),e=1-Math.pow(1-p,4);
-    var l=Math.round((from.lo+(to.lo-from.lo)*e)/step)*step,h=Math.round((from.hi+(to.hi-from.hi)*e)/step)*step;
-    el.textContent=money(p<1?l:to.lo,cur)+'\u2013'+kfmt(p<1?h:to.hi);
-    if(p<1)retRaf=requestAnimationFrame(frame);
+    if(p<1){paint(Math.round((from.lo+(to.lo-from.lo)*e)/step)*step,Math.round((from.hi+(to.hi-from.hi)*e)/step)*step);retRaf=requestAnimationFrame(frame)}
+    else paint(to.lo,to.hi);
   })(t0);
 }
 $$('#plan-m2 input').forEach(function(i){i.addEventListener('change',function(){updateRet()})});

@@ -348,15 +348,6 @@ h1 .out{color:var(--on-hi);display:inline-block;padding-inline:.07em;margin-inli
 .plan.open{--fg:var(--paper);--bg:var(--ink);--mute:var(--inv-mute);--line:var(--inv-line)}
 .plan:not(.open):hover{transform:translateY(-6px)}
 .plan-head{display:flex;flex-direction:column;align-items:flex-start;width:100%;padding:clamp(22px,2.6vw,34px);border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer}
-.plan-head .tag{font:600 13px/1.4 var(--font);color:var(--mute);letter-spacing:0;padding:5px 0}
-.plan.pick .tag{background:var(--hi);color:var(--on-hi);padding:5px 9px}
-.plan-head .pn{font:700 clamp(1.7rem,2.6vw,2.2rem)/1 var(--font);letter-spacing:-.05em;margin-top:14px}
-.plan-head .from{font-size:13px;color:var(--mute);letter-spacing:0;margin-top:26px}
-.plan-head .amt{font:800 clamp(2.4rem,4.4vw,3.7rem)/1 var(--font);letter-spacing:-.065em;font-variant-numeric:tabular-nums;margin-top:4px}
-.plan-head .amt.rng{font-size:clamp(2.2rem,3.8vw,3.3rem)}
-.amt-row{position:relative;align-self:stretch;display:block;margin-top:4px}
-.amt-row .amt{display:block}
-.delta{position:absolute;right:0;top:-30px;padding:5px 9px;border-radius:999px;background:var(--inv-accent);color:var(--inv-accent-fg);font:700 13px/1 var(--font);font-variant-numeric:tabular-nums;letter-spacing:0;opacity:0;pointer-events:none}
 .delta.go{animation:delta 1.5s var(--ease)}
 @keyframes delta{0%{opacity:0;transform:translateY(10px) scale(.9)}14%{opacity:1;transform:none}72%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-8px)}}
 /* opening a card: its contents settle in one after another */
@@ -364,8 +355,16 @@ h1 .out{color:var(--on-hi);display:inline-block;padding-inline:.07em;margin-inli
 .plan.open .plan-in>*{opacity:1;transform:none;transition:opacity .5s,transform .6s var(--ease)}
 .plan.open .plan-in>:nth-child(1){transition-delay:.12s}.plan.open .plan-in>:nth-child(2){transition-delay:.18s}
 .plan.open .plan-in>:nth-child(3){transition-delay:.24s}.plan.open .plan-in>:nth-child(4){transition-delay:.3s}
-.plan-head .per{font-size:13px;color:var(--mute);letter-spacing:0;margin-top:8px}
-.plan-head .sum{font:600 1.05rem/1.3 var(--font);letter-spacing:-.03em;margin-top:22px}
+.plan-head .tag{font:600 12.5px/1 var(--font);color:var(--mute);letter-spacing:0;padding:6px 0}
+.plan.pick .tag{background:var(--hi);color:var(--on-hi);padding:6px 10px}
+.plan-head .pn{margin-top:16px;font:700 clamp(1.5rem,2.1vw,1.8rem)/1.1 var(--font);letter-spacing:-.045em}
+.plan-head .sum{margin-top:6px;min-height:2.9em;font:400 15px/1.45 var(--font);color:var(--mute);letter-spacing:-.005em;max-width:30ch}
+.price{display:block;align-self:stretch;margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.plan-head .from{display:block;font:500 12.5px/1 var(--font);color:var(--mute);letter-spacing:0}
+.amt-row{position:relative;display:block}
+.plan-head .amt{display:block;margin-top:10px;font:800 clamp(2.3rem,3.5vw,3rem)/1 var(--font);letter-spacing:-.06em;font-variant-numeric:tabular-nums}
+.plan-head .per{display:block;margin-top:9px;font-size:13.5px;line-height:1.3;color:var(--mute);letter-spacing:0;font-variant-numeric:tabular-nums}
+.delta{position:absolute;right:0;top:-24px;padding:5px 9px;border-radius:999px;background:var(--inv-accent);color:var(--inv-accent-fg);font:700 13px/1 var(--font);font-variant-numeric:tabular-nums;letter-spacing:0;opacity:0;pointer-events:none}
 .plan-head .tog{display:flex;justify-content:space-between;align-items:center;align-self:stretch;margin-top:22px;padding-top:16px;border-top:1px solid var(--line);font:600 14px/1 var(--font);letter-spacing:0}
 .plan-head .tog i{font:400 1.7rem/.6 var(--font);font-style:normal;transition:transform .45s var(--ease)}
 .plan.open .tog i{transform:rotate(45deg)}
