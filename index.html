@@ -246,7 +246,7 @@ Here is the maths we did at 1 a.m.</p>
       <article class="plan pick open">
         <button class="plan-head" id="plan-b2" type="button" aria-expanded="true" aria-controls="plan-m2">
           <span class="tag">Most chosen</span><span class="pn">Retainer</span>
-          <span class="from">Your estimate</span><span class="amt rng" id="ret-amt">₹40k–45k</span><span class="per">per month</span>
+          <span class="from">Your estimate</span><span class="amt-row"><span class="amt rng" id="ret-amt">₹40k–45k</span><span class="delta" id="ret-delta" aria-hidden="true"></span></span><span class="per">per month</span>
           <span class="sum">Pick what you need. We write, you approve.</span>
           <span class="tog">Build your plan <i>+</i></span>
         </button>
@@ -254,13 +254,13 @@ Here is the maths we did at 1 a.m.</p>
           <div class="cfg">
             <fieldset><legend>Posts a month</legend>
               <div class="cfg-seg">
-                <label><input type="radio" name="ret-posts" id="ret-p8" value="8" checked><span>8</span></label>
-                <label><input type="radio" name="ret-posts" id="ret-p12" value="12"><span>12</span></label>
-                <label><input type="radio" name="ret-posts" id="ret-p16" value="16"><span>16</span></label>
+                <label><input type="radio" name="ret-posts" id="ret-p8" value="8" checked><span>8<small class="cost" data-inr="0">base</small></span></label>
+                <label><input type="radio" name="ret-posts" id="ret-p12" value="12"><span>12<small class="cost" data-inr="15000">+₹15k</small></span></label>
+                <label><input type="radio" name="ret-posts" id="ret-p16" value="16"><span>16<small class="cost" data-inr="30000">+₹30k</small></span></label>
               </div>
             </fieldset>
-            <label class="cfg-sw"><input type="checkbox" id="ret-eng"><span class="sw" aria-hidden="true"></span><span><b>Engagement in your voice</b><small>Daily comments and connection building</small></span></label>
-            <label class="cfg-sw"><input type="checkbox" id="ret-inb"><span class="sw" aria-hidden="true"></span><span><b>Inbound handled</b><small>Messages sorted, the warm ones handed to you</small></span></label>
+            <label class="cfg-sw"><input type="checkbox" id="ret-eng"><span class="sw" aria-hidden="true"></span><span><b>Engagement in your voice</b><small>Daily comments and connection building</small></span><span class="cost" data-inr="15000">+₹15k</span></label>
+            <label class="cfg-sw"><input type="checkbox" id="ret-inb"><span class="sw" aria-hidden="true"></span><span><b>Inbound handled</b><small>Messages sorted, the warm ones handed to you</small></span><span class="cost" data-inr="10000">+₹10k</span></label>
           </div>
           <ul><li class="inc">Everything in Foundation</li><li>One short call a week</li><li>You approve every word</li></ul>
           <p class="best"><b>An estimate</b>We confirm the final price on the call.</p>

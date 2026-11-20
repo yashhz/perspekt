@@ -229,12 +229,32 @@ function applyRegion(key){
    The range runs from that total to about 10% above it (at least 5k). */
 var RET={base:40000,posts:{8:0,12:15000,16:30000},eng:15000,inb:10000};
 function kfmt(v){return v>=1000?(Math.round(v/100)/10).toString()+'k':String(v)}
+var retShown=null,retRaf=0;
+function money(v,cur){return sym(cur)+kfmt(v)}
+/* outside India each Retainer part rounds up to a whole 100, so totals read exactly in thousands */
+function rprice(v,R){return R.cur==='INR'?v:Math.ceil(v*R.mult/FX[R.cur]/100)*100}
 function updateRet(quiet){
-  var R=REGIONS[region],pick=$('input[name="ret-posts"]:checked'),posts=pick?+pick.value:8;
-  var lo=RET.base+RET.posts[posts]+($('#ret-eng').checked?RET.eng:0)+($('#ret-inb').checked?RET.inb:0);
-  var hi=lo+Math.max(5000,Math.round(lo*.1/5000)*5000),el=$('#ret-amt');
-  el.textContent=sym(R.cur)+kfmt(price(lo,R))+'\u2013'+kfmt(price(hi,R));
-  if(!quiet&&!calm){el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump')}
+  var R=REGIONS[region],cur=R.cur,pick=$('input[name="ret-posts"]:checked'),posts=pick?+pick.value:8;
+  /* convert each part on its own, so the estimate always equals the sum of the labels */
+  var parts=[RET.base,RET.posts[posts],$('#ret-eng').checked?RET.eng:0,$('#ret-inb').checked?RET.inb:0];
+  var lo=0,loInr=0;parts.forEach(function(v){if(v){lo+=rprice(v,R);loInr+=v}});
+  var hi=lo+rprice(Math.max(5000,Math.round(loInr*.1/5000)*5000),R);
+  var to={lo:lo,hi:hi,cur:cur},el=$('#ret-amt');
+  /* what each choice adds, in the visitor's currency */
+  $$('#plan-m2 .cost[data-inr]').forEach(function(c){var v=+c.dataset.inr;c.textContent=v?'+'+money(rprice(v,R),cur):'base'});
+  var from=retShown&&retShown.cur===cur?retShown:null;retShown=to;
+  cancelAnimationFrame(retRaf);
+  if(quiet||calm||!from){el.textContent=money(to.lo,cur)+'\u2013'+kfmt(to.hi);return}
+  /* a chip shows how much the last choice added or took away */
+  var d=to.lo-from.lo,chip=$('#ret-delta');
+  if(d){chip.textContent=(d>0?'+':'\u2212')+money(Math.abs(d),cur);chip.classList.remove('go');void chip.offsetWidth;chip.classList.add('go')}
+  var step=cur==='INR'?1000:100,t0=performance.now();
+  (function frame(t){
+    var p=Math.min(1,(t-t0)/600),e=1-Math.pow(1-p,4);
+    var l=Math.round((from.lo+(to.lo-from.lo)*e)/step)*step,h=Math.round((from.hi+(to.hi-from.hi)*e)/step)*step;
+    el.textContent=money(p<1?l:to.lo,cur)+'\u2013'+kfmt(p<1?h:to.hi);
+    if(p<1)retRaf=requestAnimationFrame(frame);
+  })(t0);
 }
 $$('#plan-m2 input').forEach(function(i){i.addEventListener('change',function(){updateRet()})});
 
