@@ -64,12 +64,12 @@
 Not because we couldn't deliver it. Because delivering it would have made us a different company.
 
 Here is the maths we did at 1 a.m.</p>
-        <div class="post-stats"><span class="reacts"><i></i><i></i><i></i><span>312</span></span><span>47 comments · 12 reposts</span></div>
-        <div class="post-acts" aria-hidden="true">
-          <span><svg viewBox="0 0 24 24"><path d="M7 10v10H4V10zM7 10l4-7c1.6 0 2.6 1.1 2.3 2.7L12.7 9H18a2 2 0 0 1 2 2.3l-1 6.4a2.6 2.6 0 0 1-2.6 2.3H7"/></svg>Like</span>
-          <span><svg viewBox="0 0 24 24"><path d="M4 5h16v11H10l-6 4z"/></svg>Comment</span>
-          <span><svg viewBox="0 0 24 24"><path d="M7 7h9a2 2 0 0 1 2 2v4M17 17H8a2 2 0 0 1-2-2v-4M15 11l3 3 3-3M9 13l-3-3-3 3"/></svg>Repost</span>
-          <span><svg viewBox="0 0 24 24"><path d="M21 3 3 10l7 3 3 7z"/></svg>Send</span>
+        <div class="post-stats"><span class="reacts"><i></i><i></i><i></i><span id="pa-likes">312</span></span><span>47 comments · <span id="pa-reposts">12</span> reposts</span></div>
+        <div class="post-acts">
+          <button type="button" class="pa" id="pa-like" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v10H4V10zM7 10l4-7c1.6 0 2.6 1.1 2.3 2.7L12.7 9H18a2 2 0 0 1 2 2.3l-1 6.4a2.6 2.6 0 0 1-2.6 2.3H7"/></svg>Like</button>
+          <a class="pa" href="#book"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-6 4z"/></svg>Comment</a>
+          <button type="button" class="pa" id="pa-rep" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h9a2 2 0 0 1 2 2v4M17 17H8a2 2 0 0 1-2-2v-4M15 11l3 3 3-3M9 13l-3-3-3 3"/></svg>Repost</button>
+          <button type="button" class="pa" id="pa-send"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3 3 10l7 3 3 7z"/></svg>Send</button>
         </div>
       </aside>
       <span class="note post-cap">Example post. Written by Perspekt, approved by you.</span>
@@ -337,6 +337,7 @@ Here is the maths we did at 1 a.m.</p>
   </div>
 </footer>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="js/main.js"></script>
 </body>
 </html>

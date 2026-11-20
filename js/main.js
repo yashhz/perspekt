@@ -92,6 +92,26 @@ onScroll.push(function(){var h=document.documentElement;$('#bar').style.transfor
   new IntersectionObserver(function(es){seen=es[0].isIntersecting;cancelAnimationFrame(raf);if(seen)raf=requestAnimationFrame(tick)}).observe(hero);
 })();
 
+/* ---------- hero: the post reacts like a real one ---------- */
+(function(){
+  var like=$('#pa-like'),rep=$('#pa-rep'),send=$('#pa-send'),toast=$('#toast'),tt=0;
+  function say(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show')},2800)}
+  function pop(b){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}
+  function toggle(b,out,base){var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);$(out).textContent=(base+(on?1:0)).toLocaleString('en-US');if(on)pop(b)}
+  like.addEventListener('click',function(){toggle(like,'#pa-likes',312)});
+  rep.addEventListener('click',function(){toggle(rep,'#pa-reposts',12)});
+  /* Send copies the site's link, then opens the phone's share sheet where there is one */
+  function fallbackCopy(url){var t=document.createElement('textarea');t.value=url;t.setAttribute('readonly','');t.style.cssText='position:fixed;opacity:0';document.body.appendChild(t);t.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}t.remove();return ok}
+  send.addEventListener('click',function(){
+    pop(send);
+    var url=location.href.split('#')[0];
+    var copied=function(){say('Link copied. Send it to someone who should be posting.')};
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(copied,function(){if(fallbackCopy(url))copied();else say(url)});
+    else if(fallbackCopy(url))copied();else say(url);
+    if(navigator.share)navigator.share({title:'Perspekt',text:'LinkedIn personal branding and ghostwriting.',url:url}).catch(function(){});
+  });
+})();
+
 /* ---------- hero: the post that writes itself ---------- */
 (function(){
   var el=$('#typer');if(calm)return;
