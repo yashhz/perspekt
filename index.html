@@ -233,7 +233,7 @@ Here is the maths we did at 1 a.m.</p>
       <article class="plan">
         <button class="plan-head" id="plan-b1" type="button" aria-expanded="false" aria-controls="plan-m1">
           <span class="tag">One time</span><span class="pn">Foundation</span>
-          <span class="from">Starting at</span><span class="amt" data-base="20000">₹20,000</span><span class="per">once</span>
+          <span class="from">Fixed price</span><span class="amt" data-base="20000">₹20,000</span><span class="per">once</span>
           <span class="sum">Get the base right, then post yourself.</span>
           <span class="tog">What you get <i>+</i></span>
         </button>
@@ -246,27 +246,38 @@ Here is the maths we did at 1 a.m.</p>
       <article class="plan pick open">
         <button class="plan-head" id="plan-b2" type="button" aria-expanded="true" aria-controls="plan-m2">
           <span class="tag">Most chosen</span><span class="pn">Retainer</span>
-          <span class="from">Starting at</span><span class="amt" data-base="40000">₹40,000</span><span class="per">per month</span>
-          <span class="sum">We write. You approve.</span>
-          <span class="tog">What you get <i>+</i></span>
+          <span class="from">Your estimate</span><span class="amt rng" id="ret-amt">₹40k–45k</span><span class="per">per month</span>
+          <span class="sum">Pick what you need. We write, you approve.</span>
+          <span class="tog">Build your plan <i>+</i></span>
         </button>
         <div class="plan-more" id="plan-m2"><div><div class="plan-in">
-          <ul><li class="inc">Everything in Foundation</li><li>8 posts a month, written and published</li><li>You approve every word</li></ul>
-          <p class="best"><b>Best for</b>Leaders who want a steady presence without doing the writing.</p>
+          <div class="cfg">
+            <fieldset><legend>Posts a month</legend>
+              <div class="cfg-seg">
+                <label><input type="radio" name="ret-posts" id="ret-p8" value="8" checked><span>8</span></label>
+                <label><input type="radio" name="ret-posts" id="ret-p12" value="12"><span>12</span></label>
+                <label><input type="radio" name="ret-posts" id="ret-p16" value="16"><span>16</span></label>
+              </div>
+            </fieldset>
+            <label class="cfg-sw"><input type="checkbox" id="ret-eng"><span class="sw" aria-hidden="true"></span><span><b>Engagement in your voice</b><small>Daily comments and connection building</small></span></label>
+            <label class="cfg-sw"><input type="checkbox" id="ret-inb"><span class="sw" aria-hidden="true"></span><span><b>Inbound handled</b><small>Messages sorted, the warm ones handed to you</small></span></label>
+          </div>
+          <ul><li class="inc">Everything in Foundation</li><li>One short call a week</li><li>You approve every word</li></ul>
+          <p class="best"><b>An estimate</b>We confirm the final price on the call.</p>
           <a class="btn" href="#book">Book a call <i>→</i></a>
         </div></div></div>
       </article>
       <article class="plan">
         <button class="plan-head" id="plan-b3" type="button" aria-expanded="false" aria-controls="plan-m3">
-          <span class="tag">Fully managed</span><span class="pn">Growth</span>
-          <span class="from">Starting at</span><span class="amt" data-base="80000">₹80,000</span><span class="per">per month</span>
-          <span class="sum">Your whole presence, handled.</span>
+          <span class="tag">For organisations</span><span class="pn">Enterprise</span>
+          <span class="from">Pricing</span><span class="amt">Custom</span><span class="per">for your leadership team</span>
+          <span class="sum">Your whole C-suite, one voice.</span>
           <span class="tog">What you get <i>+</i></span>
         </button>
         <div class="plan-more" id="plan-m3"><div><div class="plan-in">
-          <ul><li class="inc">Everything in Retainer</li><li>More posts every month</li><li>Inbound, connections and engagement handled for you</li></ul>
-          <p class="best"><b>Best for</b>Leaders who want conversations and pipeline, not only presence.</p>
-          <a class="btn" href="#book">Book a call <i>→</i></a>
+          <ul><li class="inc">Everything in Retainer, for each leader</li><li>Founder, CEO, CFO and other leaders on LinkedIn</li><li>One story across every leader and the company page</li><li>Review steps for IR, legal and compliance</li><li>A dedicated team and monthly reporting</li></ul>
+          <p class="best"><b>Best for</b>Listed and IPO-bound companies, and leadership teams of growing firms.</p>
+          <a class="btn" href="#book">Talk to us <i>→</i></a>
         </div></div></div>
       </article>
     </div>

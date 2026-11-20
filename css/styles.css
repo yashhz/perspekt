@@ -353,6 +353,9 @@ h1 .out{color:var(--on-hi);display:inline-block;padding-inline:.07em;margin-inli
 .plan-head .pn{font:700 clamp(1.7rem,2.6vw,2.2rem)/1 var(--font);letter-spacing:-.05em;margin-top:14px}
 .plan-head .from{font-size:13px;color:var(--mute);letter-spacing:0;margin-top:26px}
 .plan-head .amt{font:800 clamp(2.4rem,4.4vw,3.7rem)/1 var(--font);letter-spacing:-.065em;font-variant-numeric:tabular-nums;margin-top:4px}
+.plan-head .amt.rng{font-size:clamp(2.2rem,3.8vw,3.3rem)}
+.plan-head .amt.bump{animation:bump .45s var(--ease)}
+@keyframes bump{40%{transform:scale(1.06)}}
 .plan-head .per{font-size:13px;color:var(--mute);letter-spacing:0;margin-top:8px}
 .plan-head .sum{font:600 1.05rem/1.3 var(--font);letter-spacing:-.03em;margin-top:22px}
 .plan-head .tog{display:flex;justify-content:space-between;align-items:center;align-self:stretch;margin-top:22px;padding-top:16px;border-top:1px solid var(--line);font:600 14px/1 var(--font);letter-spacing:0}
@@ -362,6 +365,24 @@ h1 .out{color:var(--on-hi);display:inline-block;padding-inline:.07em;margin-inli
 .plan.open .plan-more{grid-template-rows:1fr}
 .plan-more>div{overflow:hidden;min-height:0}
 .plan-in{padding:0 clamp(22px,2.6vw,34px) clamp(22px,2.6vw,34px);display:grid;gap:22px}
+.cfg{display:grid;gap:14px}
+.cfg fieldset{border:0;margin:0;padding:0;min-width:0}
+.cfg legend{padding:0;margin-bottom:8px;font:600 13px/1.4 var(--font);color:var(--mute);letter-spacing:0}
+.cfg-seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1.5px solid var(--fg)}
+.cfg-seg label{position:relative;cursor:pointer}
+.cfg-seg label+label{border-left:1.5px solid var(--fg)}
+.cfg-seg input{position:absolute;inset:0;margin:0;opacity:0;cursor:pointer}
+.cfg-seg span{display:block;padding:11px 0;text-align:center;font:700 15px/1 var(--font);font-variant-numeric:tabular-nums;transition:background .2s,color .2s}
+.cfg-seg input:checked+span{background:var(--inv-accent);color:var(--inv-accent-fg)}
+.cfg-seg input:focus-visible+span,.cfg-sw input:focus-visible+.sw{outline:2px solid var(--inv-accent);outline-offset:2px}
+.cfg-sw{position:relative;display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;align-items:center;padding-top:14px;border-top:1px solid var(--line);cursor:pointer}
+.cfg-sw input{position:absolute;opacity:0;pointer-events:none}
+.cfg-sw .sw{position:relative;width:42px;height:24px;border-radius:999px;border:1.5px solid var(--fg);transition:background .25s,border-color .25s}
+.cfg-sw .sw::after{content:"";position:absolute;top:3px;left:3px;width:15px;height:15px;border-radius:50%;background:var(--fg);transition:transform .35s var(--ease),background .25s}
+.cfg-sw input:checked+.sw{background:var(--inv-accent);border-color:var(--inv-accent)}
+.cfg-sw input:checked+.sw::after{transform:translateX(18px);background:var(--inv-accent-fg)}
+.cfg-sw b{display:block;font:600 14.5px/1.3 var(--font);letter-spacing:-.01em}
+.cfg-sw small{display:block;margin-top:2px;font-size:12.5px;line-height:1.35;color:var(--mute);letter-spacing:0}
 .plan-in ul{display:grid;gap:12px;font-size:15px;line-height:1.45}
 .plan-in li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:10px;align-items:baseline}
 .plan-in li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--inv-accent)}

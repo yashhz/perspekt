@@ -218,11 +218,26 @@ var region='IN';
 function applyRegion(key){
   region=key;var R=REGIONS[key];
   $('#region').textContent=R.note;
-  $$('.amt').forEach(function(a){a.textContent=full(price(+a.dataset.base,R),R.cur)});
+  $$('.amt[data-base]').forEach(function(a){a.textContent=full(price(+a.dataset.base,R),R.cur)});
+  updateRet(true);
   /* placeholder revenue figure, shown in the visitor's currency */
   var rv=R.cur==='INR'?['\u20B9',40,' L+']:R.cur==='EUR'?['\u20AC',40,'k+']:['$',45,'k+'],sn=$('#st-n');
   $('#st-pre').textContent=rv[0];sn.dataset.n=rv[1];sn.textContent=rv[1];$('#st-suf').textContent=rv[2];
 }
+/* Retainer: the estimate follows what the visitor picks.
+   In INR: 8 posts 40k, 12 posts +15k, 16 posts +30k, engagement +15k, inbound +10k.
+   The range runs from that total to about 10% above it (at least 5k). */
+var RET={base:40000,posts:{8:0,12:15000,16:30000},eng:15000,inb:10000};
+function kfmt(v){return v>=1000?(Math.round(v/100)/10).toString()+'k':String(v)}
+function updateRet(quiet){
+  var R=REGIONS[region],pick=$('input[name="ret-posts"]:checked'),posts=pick?+pick.value:8;
+  var lo=RET.base+RET.posts[posts]+($('#ret-eng').checked?RET.eng:0)+($('#ret-inb').checked?RET.inb:0);
+  var hi=lo+Math.max(5000,Math.round(lo*.1/5000)*5000),el=$('#ret-amt');
+  el.textContent=sym(R.cur)+kfmt(price(lo,R))+'\u2013'+kfmt(price(hi,R));
+  if(!quiet&&!calm){el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump')}
+}
+$$('#plan-m2 input').forEach(function(i){i.addEventListener('change',function(){updateRet()})});
+
 /* what to expect: the line draws as you scroll past */
 (function(){
   var ol=$('#expect-list'),items=$$('li',ol);

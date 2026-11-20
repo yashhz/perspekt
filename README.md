@@ -34,10 +34,11 @@ Everything below is placeholder content and is labelled as such on the page:
 - Client logos, results numbers (impressions, revenue, followers), testimonials and team photos.
 - The film section (hide it until the film exists).
 - The calendar (see Cal.com above).
-- "More posts every month" on the Growth plan.
 - Confirm the claims in the Questions section: no AI writing, NDA on request, and the 6–8 week / 3–6 month timeline.
 
 ## Regional pricing
+
+Foundation is a fixed price. Retainer shows an estimate that changes with what the visitor picks (posts a month, engagement, inbound); the amounts are in `RET` in `js/main.js`. Enterprise is "Custom".
 
 Prices are set in INR and converted for other regions: US ×2.5, Europe ×3, everywhere else ×2, rounded up. Exchange rates live in `FX` in `js/main.js`; update them when rates move.
 
