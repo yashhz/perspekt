@@ -11,7 +11,6 @@ function count(el){var n=+el.dataset.n,d=+el.dataset.d||0,t0=0;(function step(t)
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);if(!calm)$$('[data-n]',e.target).forEach(count)}})},{threshold:.25});
 $$('.rv,.gw,#cal,#foot-logo').forEach(function(el){io.observe(el)});
 $$('.plan.rv').forEach(function(p,i){p.style.transitionDelay=(i*90)+'ms,'+(i*90)+'ms,0ms,0ms'});
-$$('#cal-grid').forEach(function(){});
 
 /* header: rule after scroll, current section, phone menu */
 (function(){
@@ -294,28 +293,20 @@ $$('#plan-m2 input').forEach(function(i){i.addEventListener('change',function(){
   }catch(e){}
 })();
 
-/* ---------- calendar preview ---------- */
+/* ---------- booking: Cal.com inline calendar ----------
+   The booking section is dark in both themes, so the calendar always uses Cal's dark theme. */
 (function(){
-  var grid=$('#cal-grid'),slots=$('#slots'),msg=$('#cal-msg'),now=new Date(),y=now.getFullYear(),m=now.getMonth();
-  if(now.getDate()>21){m++;if(m>11){m=0;y++}}
-  var first=new Date(y,m,1),days=new Date(y,m+1,0).getDate(),lead=(first.getDay()+6)%7,pick=null,time=null;
-  $('#cal-month').textContent=first.toLocaleDateString('en-GB',{month:'long',year:'numeric'});
-  var h='MTWTFSS'.split('').map(function(d){return '<span>'+d+'</span>'}).join('');
-  for(var i=0;i<lead;i++)h+='<span></span>';
-  for(var d=1;d<=days;d++){var dt=new Date(y,m,d),wd=dt.getDay(),off=wd===0||wd===6||dt<=now;h+='<button type="button" id="cal-d'+d+'" aria-pressed="false" data-d="'+d+'" style="transition-delay:0s,0s,'+(d*18)+'ms,'+(d*18)+'ms"'+(off?' disabled':'')+'>'+d+'</button>'}
-  grid.innerHTML=h;
-  slots.innerHTML=['10:00','11:30','14:00','16:30','18:00'].map(function(t,i){return '<button type="button" id="cal-t'+i+'" aria-pressed="false">'+t+'</button>'}).join('');
-  function say(){
-    if(!pick){msg.textContent='Pick a day and a time.';return}
-    var s=new Date(y,m,pick).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
-    msg.innerHTML='<b>'+s+(time?' at '+time:'')+'</b>'+(time?'':'. Now pick a time.');
-  }
-  grid.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;$$('button',grid).forEach(function(o){o.setAttribute('aria-pressed',o===b)});pick=+b.dataset.d;say()});
-  slots.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;$$('button',slots).forEach(function(o){o.setAttribute('aria-pressed',o===b)});time=b.textContent;say()});
-  $('#cal-go').addEventListener('click',function(){
-    if(!pick||!time){msg.textContent='Pick a day and a time first.';return}
-    msg.innerHTML='<b>Nothing was sent.</b> This calendar is a preview. Live booking connects here soon.';
-  });
+  var CAL_LINK='ronak-dim8bx/15min',box=$('#cal-embed');
+  if(!box)return;
+  (function(C,A,L){var p=function(a,ar){a.q.push(ar)};var d=C.document;C.Cal=C.Cal||function(){var cal=C.Cal;var ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement('script')).src=A;cal.loaded=true}if(ar[0]===L){var api=function(){p(api,arguments)};var namespace=ar[1];api.q=api.q||[];if(typeof namespace==='string'){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,['initNamespace',namespace])}else p(cal,ar);return}p(cal,ar)}})(window,'https://app.cal.com/embed/embed.js','init');
+  Cal('init','perspekt',{origin:'https://app.cal.com'});
+  Cal.ns.perspekt('inline',{elementOrSelector:'#cal-embed',calLink:CAL_LINK,config:{layout:'month_view',theme:'dark'}});
+  Cal.ns.perspekt('ui',{theme:'dark',hideEventTypeDetails:false,layout:'month_view',cssVarsPerTheme:{dark:{'cal-brand':'#e2f04b','cal-brand-text':'#141310'}}});
+  /* hide the loading note once Cal has drawn its iframe */
+  var mo=new MutationObserver(function(){if($('iframe',box)){box.classList.add('ready');mo.disconnect()}});
+  mo.observe(box,{childList:true,subtree:true});
+  /* if Cal.com cannot load, say so and point to the booking page */
+  setTimeout(function(){if(!$('iframe',box)){var w=$('.cal-wait',box);if(w)w.innerHTML='The calendar did not load. <a href="https://cal.com/'+CAL_LINK+'" target="_blank" rel="noopener">Book on Cal.com \u2197</a>'}},9000);
 })();
 tickAll();
 })();

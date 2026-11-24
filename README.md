@@ -21,11 +21,9 @@ python3 -m http.server 8000
 
 Then open http://localhost:8000.
 
-## Adding Cal.com
+## Booking (Cal.com)
 
-1. In Cal.com, open your event, choose Embed, then Inline, and copy the code.
-2. In `index.html`, find the `CAL.COM` comment in the Book a call section and replace the `<div class="cal">` block under it with that code.
-3. In `js/main.js`, delete the block that starts with `/* ---------- calendar preview ---------- */`.
+The Book a call section shows Cal.com's live calendar for `ronak-dim8bx/15min`. To use a different event, change `CAL_LINK` in the booking block of `js/main.js` and the "Book on Cal.com" link in `index.html`. The calendar only loads on the hosted site, not when the file is opened directly.
 
 ## Before launch
 
@@ -33,7 +31,6 @@ Everything below is placeholder content and is labelled as such on the page:
 
 - Results numbers (impressions, revenue, followers), testimonials and team photos.
 - The film section (hide it until the film exists).
-- The calendar (see Cal.com above).
 - Confirm the claims in the Questions section: no AI writing, NDA on request, and the 6–8 week / 3–6 month timeline.
 
 ## Regional pricing
