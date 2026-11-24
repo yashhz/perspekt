@@ -100,10 +100,18 @@ onScroll.push(function(){var h=document.documentElement;$('#bar').style.transfor
   var hl=document.createElement('label');hl.className='haptic';hl.setAttribute('aria-hidden','true');
   hl.innerHTML='<input type="checkbox" switch tabindex="-1">';document.body.appendChild(hl);
   function buzz(){try{if(navigator.vibrate&&navigator.vibrate(8))return}catch(e){}try{hl.click()}catch(e){}}
-  function toggle(b,out,base){buzz();var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);$(out).textContent=(base+(on?1:0)).toLocaleString('en-US');if(on)pop(b)}
+  /* the numbers belong to whichever post is showing; a new post brings its own and clears your like and repost */
+  var st={likes:312,comments:47,reposts:12};
+  function n(v){return v.toLocaleString('en-US')}
+  function paint(){$('#pa-likes').textContent=n(st.likes+(like.getAttribute('aria-pressed')==='true'?1:0));$('#pa-comments').textContent=n(st.comments);$('#pa-reposts').textContent=n(st.reposts+(rep.getAttribute('aria-pressed')==='true'?1:0))}
+  document.addEventListener('postchange',function(e){
+    var box=$('#pa-stats');box.classList.add('swap');
+    setTimeout(function(){st=e.detail;like.setAttribute('aria-pressed',false);rep.setAttribute('aria-pressed',false);paint();$('#pa-time').textContent=e.detail.time;box.classList.remove('swap')},220);
+  });
+  function toggle(b){buzz();var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);paint();if(on)pop(b)}
   [like,rep,send].forEach(function(b){b.addEventListener('pointerup',function(e){if(e.pointerType!=='mouse')setTimeout(function(){b.blur()},0)})});
-  like.addEventListener('click',function(){toggle(like,'#pa-likes',312)});
-  rep.addEventListener('click',function(){toggle(rep,'#pa-reposts',12)});
+  like.addEventListener('click',function(){toggle(like)});
+  rep.addEventListener('click',function(){toggle(rep)});
   /* Send copies the site's link, then opens the phone's share sheet where there is one */
   function fallbackCopy(url){var t=document.createElement('textarea');t.value=url;t.setAttribute('readonly','');t.style.cssText='position:fixed;opacity:0';document.body.appendChild(t);t.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}t.remove();return ok}
   send.addEventListener('click',function(){
@@ -123,8 +131,10 @@ onScroll.push(function(){var h=document.documentElement;$('#bar').style.transfor
    "I work with companies on fundraising and investor relations.\n\nThe pattern never changes. Investors trust the founders they have already been reading.\n\nThat is why we started Perspekt.",
    "The CFA taught me to read the numbers.\n\nInvestor relations taught me that people remember the story.\n\nYour LinkedIn should do both."];
   var caret=document.createElement('span');caret.className='caret';var txt=document.createTextNode('');
+  /* each post has its own reactions and age */
+  var stats=[{likes:312,comments:47,reposts:12,time:'2d \u00b7 Edited'},{likes:486,comments:63,reposts:21,time:'5d'},{likes:271,comments:38,reposts:9,time:'1w'}];
   var p=0,i=0;
-  function type(){var s=posts[p];
+  function type(){var s=posts[p];if(i===0)document.dispatchEvent(new CustomEvent('postchange',{detail:stats[p]}));
     if(i<=s.length){txt.nodeValue=s.slice(0,i);var ch=s.charAt(i-1);i++;setTimeout(type,ch==='\n'?260:ch==='.'||ch==='?'?190:22+Math.random()*30)}
     else setTimeout(function(){p=(p+1)%posts.length;i=0;type()},3600)}
   setTimeout(function(){el.textContent='';el.appendChild(txt);el.appendChild(caret);p=1;type()},4200);
@@ -310,8 +320,8 @@ $$('#plan-m2 input').forEach(function(i){i.addEventListener('change',function(){
     if(started)return;started=true;
     Cal('init','perspekt',{origin:'https://app.cal.com'});
     Cal.ns.perspekt('inline',{elementOrSelector:'#cal-embed',calLink:CAL_LINK,config:{layout:'month_view',theme:'dark'}});
-    /* on phones the heading above already says what the call is, so Cal's event details are hidden */
-    Cal.ns.perspekt('ui',{theme:'dark',hideEventTypeDetails:narrow,layout:'month_view',cssVarsPerTheme:{dark:{'cal-brand':'#e2f04b','cal-brand-text':'#141310'}}});
+    /* the heading above already says what the call is, so Cal's own description column is hidden; that also keeps the times on screen */
+    Cal.ns.perspekt('ui',{theme:'dark',hideEventTypeDetails:true,layout:'month_view',cssVarsPerTheme:{dark:{'cal-brand':'#e2f04b','cal-brand-text':'#141310'}}});
     /* fade the calendar in once it has drawn; fall back to a short wait in case the event never fires */
     Cal.ns.perspekt('on',{action:'linkReady',callback:ready});
     var mo=new MutationObserver(function(){if($('iframe',box)){mo.disconnect();setTimeout(ready,2500)}});
