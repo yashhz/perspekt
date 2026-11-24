@@ -96,13 +96,18 @@ onScroll.push(function(){var h=document.documentElement;$('#bar').style.transfor
   var like=$('#pa-like'),rep=$('#pa-rep'),send=$('#pa-send'),toast=$('#toast'),tt=0;
   function say(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show')},2800)}
   function pop(b){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}
-  function toggle(b,out,base){var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);$(out).textContent=(base+(on?1:0)).toLocaleString('en-US');if(on)pop(b)}
+  /* a short tap of haptic feedback: vibrate on Android, and on iPhone (iOS 18+) toggle a hidden switch, which Safari answers with a haptic tick */
+  var hl=document.createElement('label');hl.className='haptic';hl.setAttribute('aria-hidden','true');
+  hl.innerHTML='<input type="checkbox" switch tabindex="-1">';document.body.appendChild(hl);
+  function buzz(){try{if(navigator.vibrate&&navigator.vibrate(8))return}catch(e){}try{hl.click()}catch(e){}}
+  function toggle(b,out,base){buzz();var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);$(out).textContent=(base+(on?1:0)).toLocaleString('en-US');if(on)pop(b)}
+  [like,rep,send].forEach(function(b){b.addEventListener('pointerup',function(e){if(e.pointerType!=='mouse')setTimeout(function(){b.blur()},0)})});
   like.addEventListener('click',function(){toggle(like,'#pa-likes',312)});
   rep.addEventListener('click',function(){toggle(rep,'#pa-reposts',12)});
   /* Send copies the site's link, then opens the phone's share sheet where there is one */
   function fallbackCopy(url){var t=document.createElement('textarea');t.value=url;t.setAttribute('readonly','');t.style.cssText='position:fixed;opacity:0';document.body.appendChild(t);t.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}t.remove();return ok}
   send.addEventListener('click',function(){
-    pop(send);
+    buzz();pop(send);
     var url=location.href.split('#')[0];
     var copied=function(){say('Link copied. Send it to someone who should be posting.')};
     if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(copied,function(){if(fallbackCopy(url))copied();else say(url)});
