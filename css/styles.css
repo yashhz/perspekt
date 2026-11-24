@@ -491,16 +491,14 @@ h1 .out{color:var(--on-hi);display:inline-block;padding-inline:.07em;margin-inli
 .faq details p{padding:0 40px 26px 0;color:var(--soft);max-width:58ch}
 .faq details[open] p{animation:fade .5s var(--ease) both}
 
-/* book: heading on top, Cal.com's calendar full width beneath it */
-.book-head{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
-.book-head h2{margin-top:10px}
-.book-head p{color:var(--mute);font-size:clamp(1.05rem,1.5vw,1.2rem);max-width:44ch}
-.cal-embed{position:relative;width:100vw;margin:clamp(28px,3.4vw,44px) 0 0 calc(50% - 50vw);min-height:520px;background:var(--bg)}
-.cal-embed .cal-wait{left:max(22px,calc(50vw - 590px));right:max(22px,calc(50vw - 590px))}
+/* book: heading and intro on one line, Cal.com's calendar framed beneath with room to breathe */
+.book-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px 48px}
+.book-head p{color:var(--mute);font-size:clamp(1.05rem,1.5vw,1.2rem);max-width:40ch}
+.cal-embed{position:relative;margin-top:clamp(48px,6vw,80px);min-height:560px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg)}
 .cal-embed iframe{display:block;width:100%!important;opacity:0;transition:opacity .6s ease}
 .cal-embed.ready iframe{opacity:1}
 /* placeholder while the calendar loads: soft blocks shaped like a date picker */
-.cal-wait{position:absolute;inset:0;z-index:1;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));align-content:start;gap:10px;padding:clamp(20px,3vw,36px);border:1px solid var(--line);border-radius:14px;transition:opacity .4s}
+.cal-wait{position:absolute;inset:0;z-index:1;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));align-content:start;gap:10px;padding:clamp(20px,3vw,36px);transition:opacity .4s}
 .cal-wait span{grid-column:1/-1;height:16px;border-radius:6px;background:var(--line);animation:calpulse 1.4s ease-in-out infinite}
 .cal-wait span:nth-child(1){width:40%}.cal-wait span:nth-child(2){width:65%;animation-delay:.15s}
 .cal-wait span:nth-child(3){height:240px;margin-top:14px;animation-delay:.3s}
@@ -508,16 +506,13 @@ h1 .out{color:var(--on-hi);display:inline-block;padding-inline:.07em;margin-inli
 .cal-wait a{color:var(--fg);font-weight:600;margin-left:6px}
 @keyframes calpulse{50%{opacity:.45}}
 .cal-embed.ready .cal-wait{opacity:0;pointer-events:none}
-/* phones: the calendar runs edge to edge, no frame, so Cal's own mobile layout has the full width */
+.cal-alt{margin-top:16px;font-size:13.5px;color:var(--mute);letter-spacing:0}
+.cal-alt a{color:var(--fg);font-weight:600;text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:2px}
+/* phones: the calendar runs edge to edge, no side frame, so Cal's own mobile layout has the full width */
 @media(max-width:700px){
-  .cal-embed{min-height:600px}
-  .cal-embed .cal-wait{left:0;right:0;border:0;border-radius:0}
-  .book-head{align-items:flex-start;text-align:left}
-  .cal-alt{text-align:left}
+  .cal-embed{margin-top:36px;margin-left:calc(-1 * max(22px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(22px,env(safe-area-inset-right,0px)));min-height:640px;border:0;border-radius:0;border-block:1px solid var(--line)}
   .cal-wait span:nth-child(3){height:300px}
 }
-.cal-alt{text-align:center;margin-top:18px;font-size:13.5px;color:var(--mute);letter-spacing:0}
-.cal-alt a{color:var(--fg);font-weight:600;text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:2px}
 
 /* footer */
 .foot{background:var(--band);color:var(--band-fg);--fg:var(--band-fg);--bg:var(--band);--mute:#a3a39b;--line:#ebe7de26;--ghost:#ebe7de3d;padding-block:0 26px}
