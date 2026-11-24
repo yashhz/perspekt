@@ -311,7 +311,7 @@ $$('#plan-m2 input').forEach(function(i){i.addEventListener('change',function(){
 /* ---------- booking: Cal.com inline calendar ----------
    The booking section is dark in both themes, so the calendar always uses Cal's dark theme. */
 (function(){
-  var CAL_LINK='ronak-dim8bx/discovery-call',box=$('#cal-embed');
+  var CAL_LINK='ronak-dim8bx/discovery-call',box=$('#pk-cal-embed');
   if(!box)return;
   (function(C,A,L){var p=function(a,ar){a.q.push(ar)};var d=C.document;C.Cal=C.Cal||function(){var cal=C.Cal;var ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement('script')).src=A;cal.loaded=true}if(ar[0]===L){var api=function(){p(api,arguments)};var namespace=ar[1];api.q=api.q||[];if(typeof namespace==='string'){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,['initNamespace',namespace])}else p(cal,ar);return}p(cal,ar)}})(window,'https://app.cal.com/embed/embed.js','init');
   var narrow=matchMedia('(max-width: 700px)').matches,started=false;
@@ -319,7 +319,7 @@ $$('#plan-m2 input').forEach(function(i){i.addEventListener('change',function(){
   function start(){
     if(started)return;started=true;
     Cal('init','perspekt',{origin:'https://app.cal.com'});
-    Cal.ns.perspekt('inline',{elementOrSelector:'#cal-embed',calLink:CAL_LINK,config:{layout:'month_view',theme:'dark'}});
+    Cal.ns.perspekt('inline',{elementOrSelector:'#pk-cal-embed',calLink:CAL_LINK,config:{layout:'month_view',theme:'dark'}});
     /* Cal's details column stays: it holds the 15m / 30m length picker */
     Cal.ns.perspekt('ui',{theme:'dark',hideEventTypeDetails:false,layout:'month_view',cssVarsPerTheme:{dark:{'cal-brand':'#e2f04b','cal-brand-text':'#141310'}}});
     /* fade the calendar in once it has drawn; fall back to a short wait in case the event never fires */
@@ -331,7 +331,7 @@ $$('#plan-m2 input').forEach(function(i){i.addEventListener('change',function(){
   new IntersectionObserver(function(es,o){if(es[0].isIntersecting){o.disconnect();start()}},{rootMargin:'1200px 0px'}).observe(box);
   $$('a[href="#book"]').forEach(function(l){l.addEventListener('click',start)});
   /* if Cal.com cannot load, say so and point to the booking page */
-  setTimeout(function(){if(started&&!$('iframe',box)){var w=$('.cal-wait b',box);if(w)w.innerHTML='The calendar did not load. <a href="https://cal.com/'+CAL_LINK+'" target="_blank" rel="noopener">Book on Cal.com \u2197</a>'}},12000);
+  setTimeout(function(){if(started&&!$('iframe',box)){var w=$('.pk-cal-wait b',box);if(w)w.innerHTML='The calendar did not load. <a href="https://cal.com/'+CAL_LINK+'" target="_blank" rel="noopener">Book on Cal.com \u2197</a>'}},12000);
 })();
 tickAll();
 })();
