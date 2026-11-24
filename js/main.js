@@ -320,8 +320,8 @@ $$('#plan-m2 input').forEach(function(i){i.addEventListener('change',function(){
     if(started)return;started=true;
     Cal('init','perspekt',{origin:'https://app.cal.com'});
     Cal.ns.perspekt('inline',{elementOrSelector:'#cal-embed',calLink:CAL_LINK,config:{layout:'month_view',theme:'dark'}});
-    /* the heading above already says what the call is, so Cal's own description column is hidden; that also keeps the times on screen */
-    Cal.ns.perspekt('ui',{theme:'dark',hideEventTypeDetails:true,layout:'month_view',cssVarsPerTheme:{dark:{'cal-brand':'#e2f04b','cal-brand-text':'#141310'}}});
+    /* Cal's details column stays: it holds the 15m / 30m length picker */
+    Cal.ns.perspekt('ui',{theme:'dark',hideEventTypeDetails:false,layout:'month_view',cssVarsPerTheme:{dark:{'cal-brand':'#e2f04b','cal-brand-text':'#141310'}}});
     /* fade the calendar in once it has drawn; fall back to a short wait in case the event never fires */
     Cal.ns.perspekt('on',{action:'linkReady',callback:ready});
     var mo=new MutationObserver(function(){if($('iframe',box)){mo.disconnect();setTimeout(ready,2500)}});

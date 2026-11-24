@@ -495,7 +495,8 @@ h1 .out{color:var(--on-hi);display:inline-block;padding-inline:.07em;margin-inli
 .book-head{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
 .book-head h2{margin-top:10px}
 .book-head p{color:var(--mute);font-size:clamp(1.05rem,1.5vw,1.2rem);max-width:44ch}
-.cal-embed{position:relative;max-width:980px;margin:clamp(28px,3.4vw,44px) auto 0;min-height:520px;background:var(--bg)}
+.cal-embed{position:relative;width:100vw;margin:clamp(28px,3.4vw,44px) 0 0 calc(50% - 50vw);min-height:520px;background:var(--bg)}
+.cal-embed .cal-wait{left:max(22px,calc(50vw - 590px));right:max(22px,calc(50vw - 590px))}
 .cal-embed iframe{display:block;width:100%!important;opacity:0;transition:opacity .6s ease}
 .cal-embed.ready iframe{opacity:1}
 /* placeholder while the calendar loads: soft blocks shaped like a date picker */
@@ -509,8 +510,8 @@ h1 .out{color:var(--on-hi);display:inline-block;padding-inline:.07em;margin-inli
 .cal-embed.ready .cal-wait{opacity:0;pointer-events:none}
 /* phones: the calendar runs edge to edge, no frame, so Cal's own mobile layout has the full width */
 @media(max-width:700px){
-  .cal-embed{margin-left:calc(-1 * max(22px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(22px,env(safe-area-inset-right,0px)));max-width:none;min-height:600px}
-  .cal-wait{border:0;border-radius:0}
+  .cal-embed{min-height:600px}
+  .cal-embed .cal-wait{left:0;right:0;border:0;border-radius:0}
   .book-head{align-items:flex-start;text-align:left}
   .cal-alt{text-align:left}
   .cal-wait span:nth-child(3){height:300px}
