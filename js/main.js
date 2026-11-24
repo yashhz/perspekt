@@ -156,6 +156,24 @@ onScroll.push(function(){var h=document.documentElement;$('#bar').style.transfor
   auds.forEach(function(el){['mouseenter','focus','click'].forEach(function(ev){el.addEventListener(ev,function(){if(innerWidth>900)pick(el)})})});
 })();
 
+/* ---------- team: hover or tap a photo to open the About beside it ---------- */
+(function(){
+  var members=$$('.member'),canHover=matchMedia('(hover: hover) and (min-width: 861px)');
+  members.forEach(function(m){
+    var btn=$('.member-photo',m),bio=$('.member-bio',m),pinned=false;
+    function set(open){
+      if(open)members.forEach(function(o){if(o!==m)o.dispatchEvent(new Event('member-close'))});
+      m.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);bio.inert=!open;
+    }
+    m.addEventListener('member-close',function(){pinned=false;m.classList.remove('open');btn.setAttribute('aria-expanded',false);bio.inert=true});
+    btn.addEventListener('click',function(){pinned=!m.classList.contains('open')||!pinned;set(pinned)});
+    m.addEventListener('mouseenter',function(){if(canHover.matches)set(true)});
+    m.addEventListener('mouseleave',function(){if(canHover.matches&&!pinned)set(false)});
+    bio.inert=true;
+  });
+  addEventListener('keydown',function(e){if(e.key==='Escape')members.forEach(function(m){m.dispatchEvent(new Event('member-close'))})});
+})();
+
 /* ---------- film: the frame grows into place ---------- */
 (function(){var f=$('#film-box');if(calm)return;
   onScroll.push(function(){var r=f.getBoundingClientRect(),p=clamp((innerHeight-r.top)/(innerHeight*.75));f.style.setProperty('--s',(.82+.18*p).toFixed(3))})})();
