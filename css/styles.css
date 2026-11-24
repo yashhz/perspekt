@@ -488,11 +488,23 @@ h1 .out{color:var(--on-hi);display:inline-block;padding-inline:.07em;margin-inli
 /* book: heading on top, Cal.com's calendar full width beneath it */
 .book-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px 48px}
 .book-head p{color:var(--mute);font-size:clamp(1.05rem,1.5vw,1.2rem);max-width:40ch}
-.cal-embed{position:relative;margin-top:clamp(32px,4vw,48px);min-height:560px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.cal-embed iframe{display:block;width:100%!important}
-.cal-wait{position:absolute;inset:0;display:grid;place-items:center;font-size:14px;color:var(--mute);letter-spacing:0}
-.cal-embed.ready .cal-wait{display:none}
+.cal-embed{position:relative;margin-top:clamp(32px,4vw,48px);min-height:560px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg)}
+.cal-embed iframe{display:block;width:100%!important;opacity:0;transition:opacity .6s ease}
+.cal-embed.ready iframe{opacity:1}
+/* placeholder while the calendar loads: soft blocks shaped like a date picker */
+.cal-wait{position:absolute;inset:0;z-index:1;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));align-content:start;gap:10px;padding:clamp(20px,3vw,36px);transition:opacity .4s}
+.cal-wait span{grid-column:1/-1;height:16px;border-radius:6px;background:var(--line);animation:calpulse 1.4s ease-in-out infinite}
+.cal-wait span:nth-child(1){width:40%}.cal-wait span:nth-child(2){width:65%;animation-delay:.15s}
+.cal-wait span:nth-child(3){height:240px;margin-top:14px;animation-delay:.3s}
+.cal-wait b{grid-column:1/-1;margin-top:6px;font:500 13.5px/1.4 var(--font);color:var(--mute);letter-spacing:0}
 .cal-wait a{color:var(--fg);font-weight:600;margin-left:6px}
+@keyframes calpulse{50%{opacity:.45}}
+.cal-embed.ready .cal-wait{opacity:0;pointer-events:none}
+/* phones: the calendar runs edge to edge, no frame, so Cal's own mobile layout has the full width */
+@media(max-width:700px){
+  .cal-embed{margin-left:calc(-1 * max(22px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(22px,env(safe-area-inset-right,0px)));min-height:640px;border:0;border-radius:0;border-block:1px solid var(--line)}
+  .cal-wait span:nth-child(3){height:300px}
+}
 .cal-alt{margin-top:14px;font-size:13.5px;color:var(--mute);letter-spacing:0}
 .cal-alt a{color:var(--fg);font-weight:600;text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:2px}
 

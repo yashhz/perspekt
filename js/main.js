@@ -120,8 +120,8 @@ onScroll.push(function(){var h=document.documentElement;$('#bar').style.transfor
 (function(){
   var el=$('#typer');if(calm)return;
   var posts=[el.textContent,
-   "Every founder I back gets one question in the first meeting.\n\nWhat do you believe that your competitors would call reckless?\n\nThe ones who answer fast are usually right.",
-   "Our roadshow taught me one thing.\n\nThe analysts had read everything I wrote for two years. The questions were sharper. The meetings were shorter.\n\nWrite before you need to."];
+   "I work with companies on fundraising and investor relations.\n\nThe pattern never changes. Investors trust the founders they have already been reading.\n\nThat is why we started Perspekt.",
+   "The CFA taught me to read the numbers.\n\nInvestor relations taught me that people remember the story.\n\nYour LinkedIn should do both."];
   var caret=document.createElement('span');caret.className='caret';var txt=document.createTextNode('');
   var p=0,i=0;
   function type(){var s=posts[p];
@@ -304,14 +304,24 @@ $$('#plan-m2 input').forEach(function(i){i.addEventListener('change',function(){
   var CAL_LINK='ronak-dim8bx/15min',box=$('#cal-embed');
   if(!box)return;
   (function(C,A,L){var p=function(a,ar){a.q.push(ar)};var d=C.document;C.Cal=C.Cal||function(){var cal=C.Cal;var ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement('script')).src=A;cal.loaded=true}if(ar[0]===L){var api=function(){p(api,arguments)};var namespace=ar[1];api.q=api.q||[];if(typeof namespace==='string'){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,['initNamespace',namespace])}else p(cal,ar);return}p(cal,ar)}})(window,'https://app.cal.com/embed/embed.js','init');
-  Cal('init','perspekt',{origin:'https://app.cal.com'});
-  Cal.ns.perspekt('inline',{elementOrSelector:'#cal-embed',calLink:CAL_LINK,config:{layout:'month_view',theme:'dark'}});
-  Cal.ns.perspekt('ui',{theme:'dark',hideEventTypeDetails:false,layout:'month_view',cssVarsPerTheme:{dark:{'cal-brand':'#e2f04b','cal-brand-text':'#141310'}}});
-  /* hide the loading note once Cal has drawn its iframe */
-  var mo=new MutationObserver(function(){if($('iframe',box)){box.classList.add('ready');mo.disconnect()}});
-  mo.observe(box,{childList:true,subtree:true});
+  var narrow=matchMedia('(max-width: 700px)').matches,started=false;
+  function ready(){box.classList.add('ready')}
+  function start(){
+    if(started)return;started=true;
+    Cal('init','perspekt',{origin:'https://app.cal.com'});
+    Cal.ns.perspekt('inline',{elementOrSelector:'#cal-embed',calLink:CAL_LINK,config:{layout:'month_view',theme:'dark'}});
+    /* on phones the heading above already says what the call is, so Cal's event details are hidden */
+    Cal.ns.perspekt('ui',{theme:'dark',hideEventTypeDetails:narrow,layout:'month_view',cssVarsPerTheme:{dark:{'cal-brand':'#e2f04b','cal-brand-text':'#141310'}}});
+    /* fade the calendar in once it has drawn; fall back to a short wait in case the event never fires */
+    Cal.ns.perspekt('on',{action:'linkReady',callback:ready});
+    var mo=new MutationObserver(function(){if($('iframe',box)){mo.disconnect();setTimeout(ready,2500)}});
+    mo.observe(box,{childList:true,subtree:true});
+  }
+  /* load Cal.com only as the visitor nears the booking section, or as soon as they tap a Book a call link */
+  new IntersectionObserver(function(es,o){if(es[0].isIntersecting){o.disconnect();start()}},{rootMargin:'1200px 0px'}).observe(box);
+  $$('a[href="#book"]').forEach(function(l){l.addEventListener('click',start)});
   /* if Cal.com cannot load, say so and point to the booking page */
-  setTimeout(function(){if(!$('iframe',box)){var w=$('.cal-wait',box);if(w)w.innerHTML='The calendar did not load. <a href="https://cal.com/'+CAL_LINK+'" target="_blank" rel="noopener">Book on Cal.com \u2197</a>'}},9000);
+  setTimeout(function(){if(started&&!$('iframe',box)){var w=$('.cal-wait b',box);if(w)w.innerHTML='The calendar did not load. <a href="https://cal.com/'+CAL_LINK+'" target="_blank" rel="noopener">Book on Cal.com \u2197</a>'}},12000);
 })();
 tickAll();
 })();
