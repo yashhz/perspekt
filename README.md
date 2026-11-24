@@ -25,7 +25,7 @@ Then open http://localhost:8000.
 
 ## Booking (Cal.com)
 
-The Book a call section shows Cal.com's live calendar for `ronak-dim8bx/15min`. To use a different event, change `CAL_LINK` in the booking block of `js/main.js` and the "Book on Cal.com" link in `index.html`. The calendar only loads on the hosted site, not when the file is opened directly.
+The Book a call section shows Cal.com's live calendar for `ronak-dim8bx/discovery-call`. To use a different event, change `CAL_LINK` in the booking block of `js/main.js` and the "Book on Cal.com" link in `index.html`. The calendar only loads on the hosted site, not when the file is opened directly.
 
 ## Before launch
 
