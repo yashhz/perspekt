@@ -118,7 +118,8 @@ h1 .out{color:var(--on-hi);display:inline-block;padding-inline:.07em;margin-inli
 .pa:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
 .pa svg{transition:fill-opacity .35s}
 .pa:active{transform:scale(.92)}
-@media(hover:hover){.pa:hover{background:var(--rule);color:var(--ink)}}
+.pa,.pa:hover,.pa:active,.pa:focus{background:transparent!important}
+@media(hover:hover){.pa:hover{color:var(--ink)}}
 #pa-like[aria-pressed="true"],#pa-like[aria-pressed="true"]:hover{color:var(--li)}
 #pa-like[aria-pressed="true"] svg{fill:currentColor;fill-opacity:.18}
 #pa-rep[aria-pressed="true"],#pa-rep[aria-pressed="true"]:hover{color:var(--up)}

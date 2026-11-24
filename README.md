@@ -13,6 +13,8 @@ Live: https://yashhz.github.io/perspekt/
 
 There is no build step. Edit the files and push; GitHub Pages redeploys `main` automatically.
 
+When you change `css/styles.css` or `js/main.js`, also change the `?v=` number on their two links in `index.html` (any new value, such as today's date). Otherwise returning visitors' browsers can keep the old file.
+
 To preview locally, serve the folder rather than opening the file directly (the logo mask needs a web server):
 
 ```bash
