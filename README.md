@@ -31,7 +31,7 @@ Then open http://localhost:8000.
 
 Everything below is placeholder content and is labelled as such on the page:
 
-- Client logos, results numbers (impressions, revenue, followers), testimonials and team photos.
+- Results numbers (impressions, revenue, followers), testimonials and team photos.
 - The film section (hide it until the film exists).
 - The calendar (see Cal.com above).
 - Confirm the claims in the Questions section: no AI writing, NDA on request, and the 6–8 week / 3–6 month timeline.

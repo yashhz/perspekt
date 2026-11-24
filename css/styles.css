@@ -148,16 +148,18 @@ h1 .out{color:var(--on-hi);display:inline-block;padding-inline:.07em;margin-inli
 .sil{display:block;width:100%;height:100%;fill:currentColor}
 .av{overflow:hidden}
 .av .sil{color:var(--paper);transform:translateY(8%)}
-.logos{border-block:1px solid var(--rule);padding-block:24px}
-.logos .wrap{display:flex;align-items:center;gap:16px 40px}
-.logos .label{flex:none;max-width:16ch}
-.logo-rail{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.logo-track{display:flex;gap:64px;padding-right:64px;width:max-content;animation:slide 42s linear infinite}
-.lg{display:flex;align-items:center;gap:10px;white-space:nowrap;font:700 1.3rem/1 var(--font);letter-spacing:-.045em;color:var(--ink);opacity:.72}
-.lg svg{width:26px;height:26px;fill:currentColor;flex:none}
-.lg.caps{font-weight:600;font-size:1.05rem;letter-spacing:.14em;text-transform:uppercase}
-.lg.thin{font-weight:500;letter-spacing:-.02em}
-@media(max-width:700px){.logos .wrap{flex-direction:column;align-items:flex-start}.logo-rail{width:100%;flex:none}.logos .label{max-width:none}}
+.logos{border-block:1px solid var(--rule);padding-block:26px}
+.logos .wrap{display:flex;align-items:center;gap:20px 48px}
+.logos .label{flex:none;max-width:14ch}
+/* client logos sit as one ink colour; their own colours come back on hover */
+.clients{flex:1;min-width:0;display:flex;align-items:center;justify-content:space-around;flex-wrap:wrap;gap:16px 40px}
+.client{display:flex;align-items:center;padding:10px 16px;border-radius:10px;transition:background .45s}
+.client img{display:block;width:auto;height:calc(var(--h) * var(--s,1));filter:brightness(0);opacity:.7;transition:filter .5s,opacity .5s,transform .6s var(--ease)}
+.client:hover img{filter:none;opacity:1;transform:scale(1.05)}
+:root[data-mode="dark"] .client img{filter:brightness(0) invert(1)}
+:root[data-mode="dark"] .client:hover{background:#ebe7de}
+:root[data-mode="dark"] .client:hover img{filter:none}
+@media(max-width:700px){.logos .wrap{flex-direction:column;align-items:flex-start}.clients{width:100%;flex-wrap:nowrap;justify-content:space-between;gap:8px}.client{padding:6px 4px;--s:.6}}
 
 /* results */
 .nums{padding-block:clamp(56px,8vw,110px) 0}
