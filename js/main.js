@@ -156,6 +156,18 @@ onScroll.push(function(){var h=document.documentElement;$('#bar').style.transfor
   auds.forEach(function(el){['mouseenter','focus','click'].forEach(function(ev){el.addEventListener(ev,function(){if(innerWidth>900)pick(el)})})});
 })();
 
+/* ---------- team: tap a photo to read about the person ---------- */
+(function(){
+  var people=$$('.person');
+  people.forEach(function(p){
+    var btn=$('.shot',p),bio=$('.bio',p),label=$('.shot-tag span',p);
+    function set(open){p.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);bio.inert=!open;label.textContent=open?'Close':'About'}
+    btn.addEventListener('click',function(){var open=!p.classList.contains('open');people.forEach(function(o){if(o!==p&&o.classList.contains('open'))$('.shot',o).click()});set(open)});
+    set(false);
+  });
+  addEventListener('keydown',function(e){if(e.key==='Escape')people.forEach(function(p){if(p.classList.contains('open'))$('.shot',p).click()})});
+})();
+
 /* ---------- film: the frame grows into place ---------- */
 (function(){var f=$('#film-box');if(calm)return;
   onScroll.push(function(){var r=f.getBoundingClientRect(),p=clamp((innerHeight-r.top)/(innerHeight*.75));f.style.setProperty('--s',(.82+.18*p).toFixed(3))})})();
